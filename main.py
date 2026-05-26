@@ -15,6 +15,7 @@ from network_check import (
     get_network_stats
 )
 from startup_check import get_startup_apps
+from browser_check import browser_check
 
 def main():
     if not is_windows():
@@ -180,5 +181,36 @@ def main():
 
         for app in startup_data["startup_apps"]:
             print(f"- {app}")
+
+
+    
+
+
+    browser_name = input("Enter browser: ")
+
+    browser_data = browser_check(browser_name)
+
+
+    print("\n===== BROWSER CHECK =====\n")
+
+    print(f"Browser           : {browser_data['browser']}")
+    print(f"Browser Found     : {browser_data['browser_found']}")
+
+    print(f"\nCache Size (MB)   : {browser_data['cache_size_mb']}")
+    print(f"Cache Status      : {browser_data['cache_status']}")
+
+    print(f"\nExtension Count   : {browser_data['extension_count']}")
+    print(f"Extension Status  : {browser_data['extension_status']}")
+
+    print(f"\nBrowser Version   : {browser_data['browser_version']}")
+
+    print(f"\nDefault Browser   : {browser_data['default_browser']}")
+
+    if browser_data["error_messages"]:
+        print("\nErrors:")
+
+        for error in browser_data["error_messages"]:
+            print(f"- {error}")
+        
 if __name__ == "__main__":
     main()
